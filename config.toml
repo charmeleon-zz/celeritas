@@ -1,0 +1,4 @@
+baseURL = "https://charmeleon.github.io/"
+languageCode = "en-us"
+title = "celeritas"
+theme = "purehugo"
