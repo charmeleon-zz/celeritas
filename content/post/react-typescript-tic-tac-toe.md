@@ -1,6 +1,6 @@
 ---
 title: "React Typescript Tic Tac Toe"
-date: 2018-05-29T19:33:57-05:00
+date: 2018-05-28T19:33:57-05:00
 draft: false
 ---
 If you are on the fence about starting your next React project with TypeScript 

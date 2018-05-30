@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on celeritas</title>
+    <link>https://charmeleon.github.io/post/</link>
+    <description>Recent content in Posts on celeritas</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 May 2018 19:33:57 -0500</lastBuildDate>
+    
+	<atom:link href="https://charmeleon.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>React Typescript Tic Tac Toe</title>
+      <link>https://charmeleon.github.io/post/react-typescript-tic-tac-toe/</link>
+      <pubDate>Mon, 28 May 2018 19:33:57 -0500</pubDate>
+      
+      <guid>https://charmeleon.github.io/post/react-typescript-tic-tac-toe/</guid>
+      <description>If you are on the fence about starting your next React project with TypeScript but feel that you&amp;rsquo;re lacking an introduction, this one is for you. TypeScript syntax should feel familiar to you if you have JavaScript experience and becomes intuitive after spending some time on it.
+The live demo for the finished version of this project is here, and the code is open source on its own Github repo.</description>
+    </item>
+    
+    <item>
+      <title>Welcome Hugo</title>
+      <link>https://charmeleon.github.io/post/welcome-hugo/</link>
+      <pubDate>Sun, 20 Aug 2017 19:15:39 -0500</pubDate>
+      
+      <guid>https://charmeleon.github.io/post/welcome-hugo/</guid>
+      <description>After a recent hiatus I think it may prove useful to start writing again.
+In the process I&amp;rsquo;ve decided to run this personal blog with Hugo, the static site generator written in Golang, which is exciting to a lot of people. For the time being this is because I never developed a curiosity around Jekyll; mostly due to its underlying Ruby-esque architecture and design (my apologies to Sinatra, the micro-framework that re-ignited web frameworks).</description>
+    </item>
+    
+  </channel>
+</rss>

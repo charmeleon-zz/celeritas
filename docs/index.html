@@ -1,0 +1,959 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>celeritas &middot; celeritas</title>
+
+    <meta name="description" content="">
+
+    <meta name="generator" content="Hugo 0.40.3" />
+    <meta name="twitter:card" content="summary">
+    
+    <meta name="twitter:title" content="celeritas &middot; celeritas">
+    <meta name="twitter:description" content="">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="celeritas &middot; celeritas">
+    <meta property="og:description" content="">
+
+    <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+
+    <link rel="stylesheet" href="https://charmeleon.github.io//css/all.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="alternate" type="application/rss+xml" title="celeritas" href="https://charmeleon.github.io//index.xml" />
+</head>
+<body>
+
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="https://charmeleon.github.io/">celeritas</a></h1>
+            <h2 class="brand-tagline"></h2>
+        </hgroup>
+
+        <nav class="nav">
+            <ul class="nav-list">
+                
+                
+                <li class="nav-item">
+                    <a class="pure-button" href="https://charmeleon.github.io//index.xml"><i class="fa fa-rss"></i> rss</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">28 May 2018, 19:33</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="https://charmeleon.github.io/post/react-typescript-tic-tac-toe/" class="post-title">React Typescript Tic Tac Toe</a>
+
+                        <p class="post-meta">
+                            
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<p>If you are on the fence about starting your next React project with TypeScript
+but feel that you&rsquo;re lacking an introduction, this one is for you. TypeScript
+syntax should feel familiar to you if you have JavaScript experience and
+becomes intuitive after spending some time on it.</p>
+
+<p>The live demo for the finished version of this project is <a href="https://charmeleon.github.io/games-xoxo-ts/">here</a>, and the code is open source
+<a href="https://github.com/charmeleon/games-xoxo-ts">on its own Github repo</a>.</p>
+
+<h2 id="motivation">Motivation</h2>
+
+<p>TypeScript is a superset of JavaScript so valid JavaScript is (mostly) valid
+TypeScript. It provides static typing, roughly
+meaning we have to decide whether a variable will be a <code>number</code>, <code>string</code>,
+<code>boolean</code>, etc. when we declare it.</p>
+
+<p>JavaScript is loosely typed so if a
+program has a variable <code>var counter = 15;</code>, a new value can be assigned to
+this variable <code>counter = &quot;potato&quot;;</code>. Clearly <code>&quot;potato&quot;</code> is of little use in
+counting, but nothing prevents us from doing this. With TypeScript I can
+declare that <code>counter</code> is a <code>number</code>, so that attempting to assign anything
+but a <code>number</code> will fail: <code>var counter: number = 15;</code></p>
+
+<p>In my experience, TypeScript is very useful in modern web development for non-
+trivial web applications. IDEs have a hard time inferring variable
+information and giving useful autocomplete options when writing JS,
+refactoring is a mess (IDEs change variables and properties with the same name
+in unrelated files), and many types of bugs that TypeScript helps avoid, like
+the &ldquo;potato&rdquo; example above, are routine and can be difficult to debug in large
+codebases.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>In this post I assume you have some JavaScript and React experience. If you
+are learning React and TypeScript at the same time, I recommend focusing on
+React first unless you have previous experience developing web applications.</p>
+
+<h2 id="what-we-re-building">What We&rsquo;re Building</h2>
+
+<p>This tutorial will focus on building a Tic Tac Toe game using React and
+TypeScript. The focus is to provide a gentle introduction to TypeScript with
+React.</p>
+
+<p>The React tutorial steps through building a Tic Tac Toe game as well,
+I will base this project on my pre-existing solution <a href="https://github.com/charmeleon/games-xoxo/tree/master">games-xoxo</a>.</p>
+
+<h2 id="tooling">Tooling</h2>
+
+<p>For this project we&rsquo;ll need two npm packages installed globally, <code>yarn</code>
+and <code>create-react-app</code>. Install these via <code>npm install -g yarn create-react-app</code>.
+I prefer <code>yarn</code> over <code>npm</code> for package management because it feels faster than
+<code>npm</code> and I have less issues with the lockfiles.</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>Now we begin a new project that will use TypeScript and React. The end result
+will be similar to Microsoft&rsquo;s <a href="https://github.com/Microsoft/TypeScript-React-Starter">TypeScript-React-Starter</a>
+which is an excellent guide but assumes familiarity with Redux; this project
+does not.</p>
+
+<p>Create the project via the comand line using <code>create-react-app xoxo-ts --scripts-version=react-scripts-ts</code>.
+Our application is in the <code>xoxo-ts</code> directory. This process
+shortcuts a lot of steps in setting up TypeScript and React with an efficient
+bundling pipeline; this is an involved process that I will try to
+address from the ground up in a separate blog post.</p>
+
+<p>Open this project in your favorite editor, and peek inside the <code>src</code>
+directory, it should look like this:</p>
+
+<pre><code>src
+|-- App.css
+|-- App.test.tsx
+|-- App.tsx
+|-- index.css
+|-- index.tsx
+|-- logo.svg
+`-- registerServiceWorker.ts
+</code></pre>
+
+<p>There are two file extensions of note here: <code>.ts</code> and <code>.tsx</code>. <code>.ts</code> files are
+TypeScript files with no JSX. <code>.tsx</code> files have JSX syntax in them, and you
+should always import React in <code>.tsx</code> files or you will see this error:</p>
+
+<pre><code>'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+</code></pre>
+
+<p>If you see this error, make sure you have <code>import * as React from 'react';</code>
+at the top of your <code>.tsx</code> files, the error should go away.</p>
+
+<p>Let&rsquo;s add a couple of utility packages: <code>yarn add classnames lodash</code></p>
+
+<ul>
+<li><code>classnames</code> is a utility for joining classes that is very useful
+when working with React</li>
+<li><code>lodash</code> has a collection of useful functions that I use in almost every JavaScript project</li>
+</ul>
+
+<p>Since these packages are not written in TypeScript as of this writing, we
+need to add separate dev dependencies to provide TypeScript definitions.
+These are typically found under <code>@types/&lt;package&gt;</code>; they are open source and
+maintained by the TypeScript community: <code>yarn add -D @types/classnames @types/lodash</code>.</p>
+
+<h2 id="modify-tslint-rules">Modify tslint Rules</h2>
+
+<p><code>react-scripts-ts</code> also configured <code>tslint</code> for us. I&rsquo;m a fan and proponent of
+<code>tslint</code> but for this project I will make some modifications to keep a light
+touch. Open the <code>tslint.json</code> file and add the <code>rules</code> section as seen below:</p>
+
+<pre><code>{
+    &quot;extends&quot;: [&quot;tslint:recommended&quot;, &quot;tslint-react&quot;, &quot;tslint-config-prettier&quot;],
+    &quot;linterOptions&quot;: {
+        &quot;exclude&quot;: [
+            &quot;config/**/*.js&quot;,
+            &quot;node_modules/**/*.ts&quot;
+        ]
+    },
+    &quot;rules&quot;: {
+        &quot;array-type&quot;: [true, &quot;generic&quot;],
+        &quot;interface-name&quot;:  [true, &quot;never-prefix&quot;],
+        &quot;member-access&quot;: false,
+        &quot;member-ordering&quot;: false,
+        &quot;no-console&quot;: false
+    }
+}
+</code></pre>
+
+<p>Here is the role for each of these rules (I have also linked the name of each
+rule to the <code>tslint</code> documentation for further explanation):</p>
+
+<ul>
+<li><a href="https://palantir.github.io/tslint/rules/array-type/"><code>array-type</code></a>:
+Use <code>Array&lt;T&gt;</code> format instead of <code>T[]</code> for array types</li>
+<li><a href="https://palantir.github.io/tslint/rules/interface-name/"><code>interface-name</code></a>:
+Interface names will not have an <code>I</code> prefix</li>
+<li><a href="https://palantir.github.io/tslint/rules/member-access/"><code>member-access</code></a>:
+Disable explicit visibility declarations</li>
+<li><a href="https://palantir.github.io/tslint/rules/member-ordering/"><code>member-ordering</code></a>:
+Disable enforcement of member ordering (since visibility declarations are not
+explicit anyway)</li>
+<li><a href="https://palantir.github.io/tslint/rules/no-console/"><code>no-console</code></a>:
+Allow the use of <code>console.*</code> methods</li>
+</ul>
+
+<h2 id="start-editing">Start Editing</h2>
+
+<p>Let&rsquo;s begin! First we&rsquo;ll add a <code>GameControls.tsx</code> file inside <code>src</code>. The
+contents should look like this:</p>
+
+<pre><code>import * as React from 'react';
+
+export const GameControls = (props) =&gt; (
+    &lt;div className=&quot;controls&quot;&gt;
+        &lt;button key=&quot;reset&quot; onClick={props.reset}&gt;Reset&lt;/button&gt;
+        &lt;button key=&quot;sound&quot; onClick={props.toggleSound}&gt;Sound&lt;/button&gt;
+    &lt;/div&gt;
+);
+</code></pre>
+
+<p>This is a functional React component, there is no type information yet. Next,
+edit <code>App.tsx</code> to import <code>GameControls</code>, replace its entire contents with this:</p>
+
+<pre><code>import * as React from 'react';
+import './App.css';
+import { GameControls } from './GameControls';
+
+class App extends React.Component {
+    public render() {
+        return (
+            &lt;div&gt;TODO&lt;/div&gt;
+        );
+    }
+}
+
+export default App;
+</code></pre>
+
+<p>After saving you will see this error: <code>'GameControls' is declared but its value is never read.</code>
+TypeScript can be very strict. It&rsquo;s tempting (and easy) to configure it to
+be more forgiving but I suggest getting used to its strict nature.</p>
+
+<p>We&rsquo;ll ignore the fact that <code>GameControls</code> is unused for now and add our
+first TypeScript definitions. I will cover <code>GameControls</code> in detail; the other
+components will move at a faster pace.</p>
+
+<h2 id="typing-the-first-component">Typing The First Component</h2>
+
+<p>If you look at <code>GameControls</code>, the <code>props</code> argument has a particular shape:
+it has a <code>reset</code> and a <code>toggleSound</code> property, and both of those are being
+passed to an <code>onClick</code> event on a button, so they are functions. In
+TypeScript we express the overall shape for objects as an <code>interface</code>.
+Interfaces are not functions or classes or objects. They&rsquo;re a collection of
+types, and their job is to describe the types a developer should embed into
+an object. This is an interface that recognizes that <code>reset</code> and <code>onClick</code> are functions:</p>
+
+<pre><code>export interface GameControlsProps {
+    reset: Function;
+    toggleSound: Function;
+}
+// `props` argument must match the shape of the `GameControlProps` interface
+export const GameControls = (props: GameControlsProps) =&gt; {
+    ...
+}
+</code></pre>
+
+<p>This is a good start, but it doesn&rsquo;t go far enough. You may see a nasty error
+that says <code>Type '{ children: string; key: string; onClick: Function; }' is not assignable to type 'DetailedHTMLProps&lt;ButtonHTMLAttributes&lt;HTMLButtonElement&gt;, HTMLButtonElement&gt;'.</code>
+It turns out, the <code>onClick</code> event of a <code>button</code> element has a particular
+shape (interface) as well. Once we fix our <code>GameControlProps</code> interface,
+this error goes away:</p>
+
+<pre><code>export interface GameControlsProps {
+    reset: React.MouseEventHandler&lt;HTMLElement&gt;;
+    toggleSound: React.MouseEventHandler&lt;HTMLElement&gt;;
+}
+</code></pre>
+
+<p>A note about the
+<code>&lt;HTMLElement&gt;</code> syntax. <code>React.MouseEventHandler</code> is what&rsquo;s known as a
+<a href="https://www.typescriptlang.org/docs/handbook/generics.html">generic</a>
+interface. A generic interface a reusable interface where the implementation
+will usally constrain some implementation detail to that specific type.
+If we had a <code>sort</code> generic interface, sorting strings, numbers or objects is different internally, but our interface only has to account for the types:
+passing a list of strings returns a sorted list of strings, etc.</p>
+
+<p>The <code>React.MouseEventHandler</code> interface is used for several types of
+elements that the user can interact with via the mouse - <code>HTMLElement</code> is
+the catch-all for any HTML element, but there&rsquo;s also <code>HTMLAnchorElement</code>
+for the <code>&lt;a&gt;</code> tag, <code>HTMLButtonElement</code> for a <code>&lt;button&gt;</code>, <code>HTMLDivElement</code>
+for a <code>&lt;div&gt;</code>, etc.</p>
+
+<p><code>React.MouseEventHandler&lt;HTMLElement&gt;</code> actually describes a function! It&rsquo;s
+a function most JavaScript developers are familiar with, an event
+callback (aka event handler). It has this shape: <code>function(event) {...}</code>
+in JavaScript. In TypeScript we get a souped up version that looks like this: <code>function(event: MouseEvent&lt;HTMLElement&gt;): void {...}</code>. Note that the <code>void</code>
+return type means this function does not return a value, and trying to return
+a value will get you in trouble with the TypeScript compiler.</p>
+
+<p>Here is the <code>MouseEvent</code> interface definition:</p>
+
+<pre><code>interface MouseEvent&lt;T&gt; extends SyntheticEvent&lt;T&gt; {
+    altKey: boolean;
+    button: number;
+    buttons: number;
+    clientX: number;
+    clientY: number;
+    ctrlKey: boolean;
+    getModifierState(key: string): boolean;
+    metaKey: boolean;
+    nativeEvent: NativeMouseEvent;
+    pageX: number;
+    pageY: number;
+    relatedTarget: EventTarget;
+    screenX: number;
+    screenY: number;
+    shiftKey: boolean;
+}
+</code></pre>
+
+<p>Notice again the generic: <code>interface MouseEvent&lt;T&gt; extends 
+SyntheticEvent&lt;T&gt;</code>. Another feature of interfaces is that they can be
+extended. By extending, this interface will have all properties of
+<code>SyntheticEvent</code> as well as everything in <code>MouseEvent</code>. Here is a snapshot
+of <code>SyntheticEvent</code>:</p>
+
+<pre><code>interface SyntheticEvent&lt;T&gt; {
+    bubbles: boolean;
+    currentTarget: EventTarget &amp; T;
+    cancelable: boolean;
+    defaultPrevented: boolean;
+    eventPhase: number;
+    isTrusted: boolean;
+    nativeEvent: Event;
+    preventDefault(): void;
+    isDefaultPrevented(): boolean;
+    ...
+}
+</code></pre>
+
+<p>Here we see how a function can define its return value:</p>
+
+<ul>
+<li><code>isDefaultPrevented (): boolean</code> the function returns a
+<code>boolean</code></li>
+<li><code>preventDefault(): void</code> the function does not return a value</li>
+</ul>
+
+<p>The most interesting property here is <code>currentTarget</code>, whose type is set to
+<code>EventTarget &amp; T</code>. This is known as an <a href="https://www.typescriptlang.org/docs/handbook/advanced-types.html">Intersection Type</a>,
+an advanced type that combines multiple types into one; in this case
+<code>currentTarget</code> has all of the properties of <code>EventTarget</code> as well as
+all the properties of the generic (in our case, <code>HTMLElement</code>).</p>
+
+<p>That was a deep dive for an introductory TypeScript lesson, but there are
+many types built-in to React and other libraries, and using them
+properly takes a lot of practice and learning to read TypeScript definitions
+so I&rsquo;m hoping to help jump-start your progress.</p>
+
+<p>Now the final touch is to properly express that our <code>GameControls</code> component
+is a functional React component that takes props in the shape of the
+<code>GameControlProps</code> interface that we have defined; this is what the final
+revision looks like:</p>
+
+<pre><code>export const GameControls: React.SFC&lt;GameControlsProps&gt; = props =&gt; (
+    &lt;div className=&quot;controls&quot;&gt;
+        &lt;button key=&quot;reset&quot; onClick={props.reset}&gt;Reset&lt;/button&gt;
+        &lt;button key=&quot;sound&quot; onClick={props.toggleSound}&gt;Sound&lt;/button&gt;
+    &lt;/div&gt;
+);
+</code></pre>
+
+<p><code>React.SFC</code> is the type to use for stateless functional components. The
+TypeScript compiler will recognize the <code>props</code> to be whatever type you specify
+in the generic (in our case, <code>GameControlProps</code>).</p>
+
+<h2 id="other-components">Other Components</h2>
+
+<p>Next we&rsquo;ll add a <code>Square</code> UI component representing a square in a tic tac toe
+board. Here&rsquo;s what the untyped <code>Square.tsx</code> will look like:</p>
+
+<pre><code>import * as React from 'react';
+import * as classNames from 'classnames';
+
+export const Square = props =&gt; (
+    &lt;button className={classNames('square', { winner: props.isWinner })} onClick={() =&gt; props.onClick(props.index)}&gt;
+        {props.value}
+    &lt;/button&gt;
+);
+</code></pre>
+
+<p>The <code>props</code> for a <code>Square</code> have a particular shape:</p>
+
+<ul>
+<li>an <code>isWinner</code> prop telling us if this Square is part of a winning line</li>
+<li>an <code>index</code> prop identifying this <code>Square</code> on the game board</li>
+<li>an <code>onClick</code> event handler prop</li>
+<li>a <code>value</code> prop</li>
+</ul>
+
+<p>The <code>value</code> is interesting here, it should be any type that is valid as a
+React child. There is a type for exactly this, it&rsquo;s <code>React.ReactNode</code>.
+Changing this from a functional component to a class component that has no state (in order to avoid the anonymous function <code>() =&gt; props.onClick
+(props.index)</code>), the typed version of <code>Square</code> is this:</p>
+
+<pre><code>import * as classNames from 'classnames';
+import * as React from 'react';
+
+interface SquareProps {
+    isWinner?: boolean;
+    index: number;
+    onClick(index: number): void;
+    value: React.ReactNode;
+}
+
+export class Square extends React.Component&lt;SquareProps&gt; {
+
+    onClick = (): void =&gt; {
+        this.props.onClick(this.props.index);
+    }
+
+    render() {
+        return (
+            &lt;button className={classNames('square', { winner: this.props.isWinner })} onClick={this.onClick}&gt;
+                {this.props.value}
+            &lt;/button&gt;
+        );
+    }
+}
+</code></pre>
+
+<p>Notice that the <code>isWinner</code> prop is an optional prop - it doesn&rsquo;t need to
+specified every time. If it isn&rsquo;t set we can assume that this <code>Square</code> is not
+a winner and give it only a <code>square</code> class, no <code>winner</code> class (this is
+taken care with our use of the <code>classnames</code> package).</p>
+
+<p>Next, add a <code>Board.tsx</code> file with a <code>Board</code> UI component representing the
+3x3 grid for a tic tac toe game:</p>
+
+<pre><code>import * as React from 'react';
+import { Square } from './Square';
+
+class Board extends React.Component {
+    renderSquare(i) {
+        const isWinner = this.props.winnerLine &amp;&amp; this.props.winnerLine.indexOf(i) &gt; -1;
+
+        return (
+            &lt;Square
+                value={this.props.squares[i]}
+                index={i}
+                onClick={this.props.onClick}
+                isWinner={isWinner}
+            /&gt;
+        )
+    }
+    renderRow(j) {
+        return (
+            &lt;div className=&quot;board-row&quot;&gt;
+                {this.renderSquare(j)}
+                {this.renderSquare(j + 1)}
+                {this.renderSquare(j + 2)}
+            &lt;/div&gt;
+        );
+    }
+    render() {
+        return (
+            &lt;div&gt;
+                {this.renderRow(0)}
+                {this.renderRow(3)}
+                {this.renderRow(6)}
+            &lt;/div&gt;
+        );
+    }
+}
+
+export default Board
+</code></pre>
+
+<p>The component takes three props: <code>winnerLine</code>, <code>squares</code>, and <code>onClick</code>.</p>
+
+<p>This <code>onClick</code> is different from previous ones, it will be invoked with the
+index of the <code>Square</code> that is clicked. It is therefore not a match for
+the <code>React.MouseEventHandler</code>interface, but a custom function that accepts
+a number as a parameter. The resulting code is this:</p>
+
+<pre><code>import * as React from 'react';
+import { Square } from './Square';
+
+export type SquareState = 'X' | 'O' | null;
+
+export interface BoardProps {
+    onClick(index: number): void;
+    squares: Array&lt;SquareState&gt;;
+    winnerLine?: Array&lt;number&gt;;
+}
+
+class Board extends React.Component&lt;BoardProps&gt; {
+
+    renderSquare(i: number): React.ReactNode {
+        const isWinner = this.props.winnerLine &amp;&amp; this.props.winnerLine.indexOf(i) &gt; -1;
+
+        return (
+            &lt;Square
+                value={this.props.squares[i]}
+                index={i}
+                onClick={this.props.onClick}
+                isWinner={isWinner}
+            /&gt;
+        )
+    }
+    renderRow(j: number): React.ReactNode {
+        return (
+            &lt;div className=&quot;board-row&quot;&gt;
+                {this.renderSquare(j)}
+                {this.renderSquare(j + 1)}
+                {this.renderSquare(j + 2)}
+            &lt;/div&gt;
+        );
+    }
+    render() {
+        return (
+            &lt;div&gt;
+                {this.renderRow(0)}
+                {this.renderRow(3)}
+                {this.renderRow(6)}
+            &lt;/div&gt;
+        );
+    }
+}
+
+export default Board;
+</code></pre>
+
+<p>Here, <code>renderSquare</code> and <code>renderNode</code> specify that they will return a
+<code>React.ReactNode</code>, but typically the <code>render</code> method&rsquo;s return value is not
+specified.</p>
+
+<p>This file defines a custom type, <code>SquareState</code> which restricts the
+<code>value</code> prop for the squares to one of <code>X</code>, <code>O</code> or <code>null</code>.</p>
+
+<p>Now add a file <code>Functions.ts</code> that will be the home for the logic to
+check the win conditions. There are two functions, <code>calculateWinner</code>
+to determine whether X or O (or neither) has won, and <code>getWinnerLine</code> that
+will return the indices of each square in a winning line, or null.</p>
+
+<p>Only function arguments and return values have their types specified in this
+file:</p>
+
+<pre><code>import { SquareState } from './Board';
+
+export function calculateWinner(squares: Array&lt;SquareState&gt;): SquareState {
+    const line = getWinnerLine(squares);
+
+    if (line) {
+        return squares[line[0]];
+    }
+
+    return null;
+}
+
+export function getWinnerLine(squares: Array&lt;SquareState&gt;): Array&lt;number&gt; | undefined {
+    const lines = [
+        // horizontal
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        // vertical
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        // across
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+
+    for (const line of lines) {
+        const [a, b, c] = line;
+        if (squares[a] &amp;&amp; squares[a] === squares[b] &amp;&amp; squares[a] === squares[c]) {
+            return line;
+        }
+    }
+
+    return undefined;
+}
+</code></pre>
+
+<p>In <code>getWinnerLine</code>, the <code>lines</code> variable can be specified as
+a two-dimensional array of numbers: <code>const lines: Array&lt;Array&lt;number&gt;&gt; = ...</code>
+but the TypeScript compiler has enough information to infer this so
+there is no need. When the type is ambiguous the compiler will ask you
+specify it.</p>
+
+<p>I find it useful to ensure that the inputs (function arguments,
+props) and outputs (return values) are typed to protect against bugs
+arising from future changes to the codebase and work with the compiler on
+types that it cannot infer. I don&rsquo;t actively work to having <em>every</em>
+variable in my code typed (but I do work to fix every TypeScript error).</p>
+
+<p>Before the next section, download the <a href="https://github.com/charmeleon/games-xoxo/blob/master/public/assets/sounds/electro-bass.wav">sound file</a>
+(or comment it out from the code below).</p>
+
+<p>Now, for the last component to tie all this together, <code>App.tsx</code> should look
+like this:</p>
+
+<pre><code>import * as React from 'react';
+import { isNull, isNullOrUndefined, isUndefined } from 'util';
+import './App.css';
+import Board, { SquareState } from './Board';
+import { calculateWinner, getWinnerLine } from './Functions';
+import { GameControls } from './GameControls';
+
+type BoardState = Array&lt;SquareState&gt;;
+
+export interface AppState {
+    history: Array&lt;BoardState&gt;,
+    playSound: boolean;
+    stepNumber: number;
+    winner: SquareState;
+    winnerLine?: Array&lt;number&gt;;
+    xIsNext: boolean;
+}
+
+class App extends React.Component&lt;{}, AppState&gt; {
+    constructor(props: {}) {
+        super(props);
+        this.reset();
+    }
+
+    reset = () =&gt; {
+        const playSoundStored = localStorage.getItem('playSound');
+        const playSound = isNull(playSoundStored) ? true : JSON.parse(playSoundStored);
+        const history = [
+            Array(9).fill(null)
+        ];
+
+        const state = {
+            history,
+            playSound,
+            stepNumber: 0,
+            winner: null,
+            winnerLine: undefined,
+            xIsNext: true,
+        };
+
+        if (isUndefined(this.state)) {
+            this.state = state;
+        } else {
+            this.setState(state);
+        }
+    }
+
+    handleBoardClick = (i: number) =&gt; {
+        const history = this.state.history;
+        // The board's current state is the latest entry in this.state.history
+        const boardState = history.slice(-1).pop() as BoardState;
+        // Ignore click if the square already has a value, or if the game is over
+        if (!isNullOrUndefined(boardState[i]) || this.state.winner) {
+            return;
+        }
+        // Update this square's value
+        boardState[i] = this.state.xIsNext ? 'X' : 'O';
+        const winner = calculateWinner(boardState);
+        const winnerLine = getWinnerLine(boardState);
+
+        this.setState({
+            history: history.concat([boardState]),
+            stepNumber: this.state.stepNumber + 1,
+            winner,
+            winnerLine,
+            xIsNext: !this.state.xIsNext,
+        })
+    }
+
+    jumpTo(step: number) {
+        this.setState({
+            stepNumber: step,
+            xIsNext: (step % 2) ? false : true
+        })
+    }
+
+    toggleSound = () =&gt; {
+        const playSound = !this.state.playSound;
+
+        localStorage.setItem('playSound', playSound.toString());
+        this.setState({
+            playSound
+        });
+    }
+
+    getSound(): React.ReactNode {
+        if (this.state.playSound) {
+            return (
+                &lt;audio id=&quot;background-sound&quot; autoPlay={true} loop={true} src=&quot;assets/sounds/electro-bass.wav&quot;/&gt;
+            );
+        }
+        return null;
+    }
+
+    getStatusText():  string {
+        if (this.state.winner) {
+            return 'Winner: ' + this.state.winner;
+        }
+        else if (this.state.stepNumber &gt;= 9) {
+            return &quot;It's a tie!&quot;;
+        }
+        return 'Current turn: ' + (this.state.xIsNext ? 'X' : 'O');
+    }
+
+    render() {
+        const history = this.state.history;
+        const current = history[this.state.stepNumber];
+        const status = this.getStatusText();
+
+        return (
+            &lt;div className=&quot;App&quot;&gt;
+                &lt;div className=&quot;game-info&quot;&gt;
+                    &lt;div className=&quot;text-center&quot;&gt;{status}&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div className=&quot;game-board&quot;&gt;
+                    &lt;Board
+                        squares={current}
+                        winnerLine={this.state.winnerLine}
+                        onClick={this.handleBoardClick}
+                    /&gt;
+                &lt;/div&gt;
+                &lt;GameControls
+                    toggleSound={this.toggleSound}
+                    reset={this.reset}
+                /&gt;
+                {this.getSound()}
+            &lt;/div&gt;
+        );
+    }
+}
+
+export default App;
+</code></pre>
+
+<p>This final component has <code>state</code> but no <code>props</code> (previously, the <code>Board</code>
+component had <code>props</code> but no <code>state</code>). It reuses the <code>SquareState</code> type from
+the <code>Board</code> component (in a larger application, you might dedicate a directory
+in your architecture to these reusable types). There&rsquo;s a good chunk of logic
+dedicated to handling a click on the board, but none of it is TypeScript
+intensive.</p>
+
+<p>Finally, these are the contents of my <code>App.css</code> to get this game looking
+spiffy:</p>
+
+<pre><code>:root {
+    --square-size:84px;
+    --square-font-size:72px
+}
+.App {
+    padding-top:2em;
+    text-align:center
+}
+.App-logo {
+    -webkit-animation:App-logo-spin infinite 20s linear;
+    animation:App-logo-spin infinite 20s linear;
+    height:80px
+}
+.App-header {
+    height:90px;
+    padding:20px;
+    color:#fff
+}
+.App-intro {
+    font-size:large
+}
+@-webkit-keyframes App-logo-spin {
+    0% {
+        -webkit-transform:rotate(0deg);
+        transform:rotate(0deg)
+    }
+    to {
+        -webkit-transform:rotate(1turn);
+        transform:rotate(1turn)
+    }
+}
+@keyframes App-logo-spin {
+    0% {
+        -webkit-transform:rotate(0deg);
+        transform:rotate(0deg)
+    }
+    to {
+        -webkit-transform:rotate(1turn);
+        transform:rotate(1turn)
+    }
+}
+body {
+    font:18px Helvetica,Arial,sans-serif;
+    margin:30px
+}
+ol,ul {
+    padding-left:30px
+}
+.status {
+    margin-bottom:10px
+}
+.square {
+    background:#fff;
+    border:1.7px solid #000;
+    float:left;
+    font-size:var(--square-font-size);
+    font-weight:700;
+    line-height:var(--square-size);
+    height:var(--square-size);
+    margin-right:-1px;
+    margin-top:-1px;
+    padding:0;
+    text-align:center;
+    vertical-align:middle;
+    width:var(--square-size);
+    margin-bottom:0;
+    border-radius:0
+}
+.board-row:first-child &gt; .square {
+    border-top:none
+}
+.board-row:last-child &gt; .square {
+    border-bottom:none
+}
+.board-row&gt;.square:first-child {
+    border-left:none
+}
+.board-row&gt;.square:last-child {
+    border-right:none
+}
+.kbd-navigation .square:focus {
+    background:#ddd
+}
+.game {
+    -webkit-box-orient:horizontal;
+    -webkit-box-direction:normal;
+    -ms-flex-direction:row;
+    flex-direction:row
+}
+.board-row,.game {
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:flex
+}
+.board-row {
+    -webkit-box-pack:center;
+    -ms-flex-pack:center;
+    justify-content:center
+}
+.board-row:after {
+    clear:both;
+    content:&quot;&quot;;
+    display:table
+}
+.game-info {
+    margin-bottom:1em
+}
+.controls {
+    padding:2em
+}
+.winner {
+    -webkit-animation:blinker 1s linear infinite;
+    animation:blinker 1s linear infinite;
+    color:green!important
+}
+@-webkit-keyframes blinker {
+    50% {
+        opacity:0
+    }
+}
+@keyframes blinker {
+    50% {
+        opacity:0
+    }
+}
+</code></pre>
+
+<p>Now you have run a true small TypeScript+React project!</p>
+
+                    </div>
+                </section>
+                
+                <h1 class="content-subhead">20 Aug 2017, 19:15</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="https://charmeleon.github.io/post/welcome-hugo/" class="post-title">Welcome Hugo</a>
+
+                        <p class="post-meta">
+                            
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>After a recent hiatus I think it may prove useful to start writing again.</p>
+
+<p>In the process I&rsquo;ve decided to run this personal blog with Hugo, the static site generator written in
+Golang, which is exciting to a lot of people. For the time being this is because I never developed a
+curiosity around Jekyll; mostly due to its underlying Ruby-esque architecture and design (my apologies to
+Sinatra, the micro-framework that re-ignited web frameworks).</p>
+
+<p>I decided against migrating my current writings, originally written in Jekyll, partly due to nostalgia
+and also for an accurate representation of what the web looked like in 2012. My early attempts at web
+content are forever lost with the shutdown of Geocities, I would not like the same to happen to my
+slightly more mature attempts. For now this content should be available at <a href="/jekyll-archive/">/jekyll-archive/</a>
+, gracefully hosted by GitHub Pages.</p>
+
+<p>My technical focus is currently dedicated to achieving competence in algorithms and data structures. I&rsquo;m
+familiar with basic data structures (arrays, linked lists, binary tree, etc.) and basic sorting
+algorithms (quick sort, binary sort, bubble sort, etc.) which is the stuff that would be relegated to a
+CS101 course. I would like to delve into divide and conquer, shortest path, tries, red-black trees, etc.</p>
+
+<p>I&rsquo;ve grown some complacency in understanding well enough of how something works, and professionally this
+serves me well. On a personal note I prefer to take these things apart and implement a toy version to
+better understand any tradeoffs being made. So in this new venture I plan on starting from data
+structures that I&rsquo;m familiar with and work my way to the unfamiliar ones implementing everything in C.
+It may be overkill but at the end of the day a double linked list without pointers just isn&rsquo;t the same.</p>
+
+                    </div>
+                </section>
+                
+            </div>
+            
+
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="https://gohugo.io/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+<script src="https://charmeleon.github.io//js/all.min.js"></script>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', '', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>
