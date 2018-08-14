@@ -1,6 +1,8 @@
 ---
 title: "React Typescript Tic Tac Toe"
 date: 2018-05-28T19:33:57-05:00
+category: TypeScript
+tags: react, typescript, javascript
 draft: false
 ---
 If you are on the fence about starting your next React project with TypeScript 
