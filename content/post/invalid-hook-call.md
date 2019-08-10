@@ -1,5 +1,5 @@
 ---
-title: "Invalid Hook Call"
+title: "Handling Invalid Hook Call warning"
 date: 2019-08-10T08:11:18-05:00
 tags: react, javascript, warning, yarn
 draft: false
